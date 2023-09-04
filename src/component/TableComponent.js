@@ -19,35 +19,35 @@ const ExampleThree = () => {
       id: 1,
       ED: "This is Fake Data",
       PN: 100000,
-      PI: 223423404,
+      PI: 20,
       VN: 4075678678,
     },
     {
       id: 2,
       ED: "This is Fake Data",
       PN: 200000,
-      PI: 232423033,
+      PI: 30,
       VN: 4878678670,
     },
     {
       id: 3,
       ED: "This is Fake Data",
       PN: 300000,
-      PI: 2324230,
+      PI: 80,
       VN: 40684856,
     },
     {
       id: 4,
       ED: "This is Fake Data",
       PN: 400000,
-      PI: 22342343,
+      PI: 90,
       VN: 47567556,
     },
     {
       id: 5,
       ED: "This is Fake Data",
       PN: 500000,
-      PI: 264564560,
+      PI: 60,
       VN: 4567565670,
     },
   ];
@@ -80,7 +80,13 @@ const ExampleThree = () => {
               {tableData.map((rowData, index) => (
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate("Post", { rowData });
+                    const data = {
+                      ED: rowData[0],
+                      PN: rowData[1],
+                      PI: rowData[2],
+                      VN: rowData[3],
+                    };
+                    navigation.navigate("Post", { data });
                   }}
                 >
                   <Row
