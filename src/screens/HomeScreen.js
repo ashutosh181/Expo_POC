@@ -4,6 +4,7 @@ import {
   Modal,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
@@ -41,7 +42,11 @@ function HomeScreen() {
         </Text>
       </View>
       <View style={styles.findView}>
-        <Text>Find:</Text>
+        <TextInput
+          style={styles.findInput}
+          placeholder="Find"
+          placeholderTextColor={"#000000"}
+        />
         <View style={styles.findSubView}>
           <Image
             source={require("./../assets/searchIcon.png")}
@@ -148,7 +153,7 @@ const styles = StyleSheet.create({
   findView: {
     backgroundColor: "#FFFFFF",
     width: "95%",
-    height: 25,
+    height: 30,
     alignSelf: "center",
     marginTop: 10,
     borderRadius: 5,
@@ -207,8 +212,7 @@ const styles = StyleSheet.create({
   subHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal: 20,
-
+    marginHorizontal: 15,
     marginVertical: 10,
   },
   subMot: {
@@ -223,4 +227,8 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   subHeaderText: { fontWeight: "200" },
+  findInput: {
+    flex: 1,
+    marginEnd: 10,
+  },
 });

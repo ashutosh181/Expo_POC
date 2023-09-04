@@ -80,7 +80,13 @@ const ExampleThree = () => {
               {tableData.map((rowData, index) => (
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate("Post", { rowData });
+                    const data = {
+                      ED: rowData[0],
+                      PN: rowData[1],
+                      PI: rowData[2],
+                      VN: rowData[3],
+                    };
+                    navigation.navigate("Post", { data });
                   }}
                 >
                   <Row
