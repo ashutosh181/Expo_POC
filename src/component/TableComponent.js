@@ -6,10 +6,10 @@ import { Table, Row } from "react-native-table-component";
 const ExampleThree = () => {
   const navigation = useNavigation();
   const [tableHead] = useState([
-    "Event description",
-    "po number",
-    "po item",
-    "vessel number",
+    "Event Description",
+    "PO Number",
+    "PO Item",
+    "Vessel Number",
   ]);
 
   const widthArr = [120, 120, 120, 120];
@@ -17,37 +17,37 @@ const ExampleThree = () => {
   const data = [
     {
       id: 1,
-      ED: "This is Fake Data",
-      PN: 100000,
-      PI: 20,
+      ED: "New",
+      PN: 80,
+      PI: 223423404,
       VN: 4075678678,
     },
     {
       id: 2,
-      ED: "This is Fake Data",
-      PN: 200000,
-      PI: 30,
+      ED: "New",
+      PN: 10,
+      PI: 232423033,
       VN: 4878678670,
     },
     {
       id: 3,
-      ED: "This is Fake Data",
-      PN: 300000,
-      PI: 80,
+      ED: "New",
+      PN: 20,
+      PI: 2324230,
       VN: 40684856,
     },
     {
       id: 4,
-      ED: "This is Fake Data",
-      PN: 400000,
-      PI: 90,
+      ED: "New",
+      PN: 30,
+      PI: 22342343,
       VN: 47567556,
     },
     {
       id: 5,
-      ED: "This is Fake Data",
-      PN: 500000,
-      PI: 60,
+      ED: "New",
+      PN: 50,
+      PI: 264564560,
       VN: 4567565670,
     },
   ];
