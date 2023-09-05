@@ -12,6 +12,7 @@ import {
 import TableComponent from "../component/TableComponent";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CalendarComponent from "../component/CalendarComponent";
+import { calendarIcon } from "../utils/images";
 
 function HomeScreen() {
   const [showCalendar, setShowCalendar] = useState(false);
@@ -92,10 +93,7 @@ function HomeScreen() {
             }}
           >
             <Text>{startDate}</Text>
-            <Image
-              source={require("./../assets/calendarIcon.png")}
-              style={styles.searchIcon}
-            />
+            <Image source={calendarIcon} style={styles.searchIcon} />
           </TouchableOpacity>
         </View>
         <View style={styles.subMot}>
@@ -108,18 +106,15 @@ function HomeScreen() {
             }}
           >
             <Text>{endDate}</Text>
-            <Image
-              source={require("./../assets/calendarIcon.png")}
-              style={styles.searchIcon}
-            />
+            <Image source={calendarIcon} style={styles.searchIcon} />
           </TouchableOpacity>
         </View>
       </View>
       <TableComponent />
       {showCalendar && (
         <TouchableWithoutFeedback
+          style={{ flex: 1 }}
           onPress={() => {
-            alert("dsfdsf");
             setShowCalendar(false);
           }}
         >
@@ -144,15 +139,16 @@ function HomeScreen() {
 }
 export default HomeScreen;
 const styles = StyleSheet.create({
-  calendarView: {
-    gap: 2,
-    width: "45%",
+  container: {
+    flex: 1,
+    backgroundColor: "#e4ede6",
+    paddingHorizontal: 15,
+    paddingVertical: 5,
   },
-  container: { flex: 1, backgroundColor: "#e4ede6", padding: 5 },
   header: { alignItems: "center", marginTop: 5 },
   findView: {
     backgroundColor: "#FFFFFF",
-    width: "95%",
+    width: "100%",
     height: 30,
     alignSelf: "center",
     marginTop: 10,
@@ -193,8 +189,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 15,
     alignItems: "center",
-    justifyContent: "center",
-    gap: 15,
+    justifyContent: "space-between",
   },
   saveBtn: {
     justifyContent: "center",
@@ -212,11 +207,12 @@ const styles = StyleSheet.create({
   subHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal: 15,
+    width: "100%",
     marginVertical: 10,
+    alignSelf: "center",
   },
   subMot: {
-    width: "45%",
+    width: "48%",
   },
   durationView: {
     alignItems: "center",
