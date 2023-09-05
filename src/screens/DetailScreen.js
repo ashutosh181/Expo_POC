@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import {
+  arrowDown,
   calendarIcon,
   checkboxIcon,
   commentIcon,
@@ -19,9 +20,12 @@ import {
   logoutIcon,
   uploadIcon,
 } from "../utils/images";
+import DropDownComponent from "../component/DropDownComponent";
 
 function DetailScreen({ navigation, route }) {
   const { data } = route.params;
+  const [showDropDropdown, setShowDropDropdown] = useState(false);
+  const [dropdownType, setDropdownType] = useState("vehicle_location");
 
   const navList = [
     {
@@ -105,10 +109,7 @@ function DetailScreen({ navigation, route }) {
           }}
           style={styles.backIconView}
         >
-          <Image
-            source={require("./../assets/arrowDown.png")}
-            style={styles.backIcon}
-          />
+          <Image source={arrowDown} style={styles.backIcon} />
         </TouchableOpacity>
         <Text style={styles.headerText}>
           {data.PI}:{data.PN}
@@ -134,17 +135,21 @@ function DetailScreen({ navigation, route }) {
           </View>
           <View style={styles.inputView}>
             <Text>PO Item</Text>
-            <TextInput value={data.PN} style={styles.textInput} />
+            <TextInput value={data.PI} style={styles.textInput} />
           </View>
           <View style={styles.inputView}>
             <Text>Material Desc</Text>
-            <TextInput value={data.PN} style={styles.textInput} />
+            <TextInput
+              value={"RN60030 (CARBON DAIOXIDE) Bulk"}
+              style={styles.textInput}
+            />
           </View>
           <View style={styles.inputView}>
             <Text>
               Date of Manufacturing <Text style={styles.startText}>*</Text>
             </Text>
             <View style={styles.dropDownInput}>
+              <Text></Text>
               <Image source={calendarIcon} style={styles.calIcon} />
             </View>
           </View>
@@ -156,7 +161,38 @@ function DetailScreen({ navigation, route }) {
           </View>
           <View style={styles.inputView}>
             <Text>Vehicle Location</Text>
-            <TextInput style={styles.dropDownInput} />
+            <TouchableOpacity
+              style={styles.dropDownInput}
+              onPress={() => {
+                setDropdownType("vehicle_location");
+                setShowDropDropdown((prev) => !prev);
+              }}
+            >
+              <Text>OP - Oronite Oak Point Plant</Text>
+              <Image
+                source={arrowDown}
+                style={[
+                  styles.calIcon,
+                  {
+                    transform: [
+                      {
+                        rotate:
+                          showDropDropdown && dropdownType === "unit_of_measure"
+                            ? "180deg"
+                            : "0deg",
+                      },
+                    ],
+                  },
+                ]}
+              />
+            </TouchableOpacity>
+            {showDropDropdown && dropdownType === "vehicle_location" && (
+              <DropDownComponent
+                onSelect={(val) => {
+                  setShowDropDropdown(false);
+                }}
+              />
+            )}
           </View>
           <View style={styles.inputView}>
             <Text>
@@ -168,7 +204,34 @@ function DetailScreen({ navigation, route }) {
             <Text>
               Unit of Measure <Text style={styles.startText}>*</Text>
             </Text>
-            <TextInput style={styles.dropDownInput} />
+            <TouchableOpacity
+              style={styles.dropDownInput}
+              onPress={() => {
+                setDropdownType("unit_of_measure");
+                setShowDropDropdown((prev) => !prev);
+              }}
+            >
+              <Text>KG</Text>
+              <Image
+                source={arrowDown}
+                style={[
+                  styles.calIcon,
+                  {
+                    transform: [
+                      { rotate: showDropDropdown ? "180deg" : "0deg" },
+                    ],
+                  },
+                ]}
+              />
+            </TouchableOpacity>
+            {showDropDropdown && dropdownType === "unit_of_measure" && (
+              <DropDownComponent
+                onSelect={(val) => {
+                  alert(val);
+                  setShowDropDropdown(false);
+                }}
+              />
+            )}
           </View>
           <View style={styles.inputView}>
             <Text>Delivery Number/Note</Text>
@@ -176,7 +239,39 @@ function DetailScreen({ navigation, route }) {
           </View>
           <View style={styles.inputView}>
             <Text>Late Reason</Text>
-            <TextInput style={styles.dropDownInput} />
+            <TouchableOpacity
+              style={styles.dropDownInput}
+              onPress={() => {
+                setDropdownType("late_reason");
+                setShowDropDropdown((prev) => !prev);
+              }}
+            >
+              <Text>-- Selecte One --</Text>
+              <Image
+                source={arrowDown}
+                style={[
+                  styles.calIcon,
+                  {
+                    transform: [
+                      {
+                        rotate:
+                          showDropDropdown && dropdownType === "unit_of_measure"
+                            ? "180deg"
+                            : "0deg",
+                      },
+                    ],
+                  },
+                ]}
+              />
+            </TouchableOpacity>
+            {showDropDropdown && dropdownType === "late_reason" && (
+              <DropDownComponent
+                onSelect={(val) => {
+                  alert(val);
+                  setShowDropDropdown(false);
+                }}
+              />
+            )}
           </View>
           <View style={styles.submmitView}>
             <TouchableOpacity style={styles.btnView}>
@@ -213,6 +308,7 @@ const styles = StyleSheet.create({
     borderColor: "#9bf2d5",
   },
   textInput: {
+    paddingHorizontal: 10,
     color: "black",
     borderColor: "#000000",
     borderWidth: 0.2,
@@ -230,11 +326,13 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     height: 25,
     alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
   },
   calIcon: {
-    width: 20,
-    height: 20,
-    alignSelf: "flex-end",
+    width: 18,
+    height: 18,
     marginEnd: 10,
   },
   submmitView: {

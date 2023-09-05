@@ -1,22 +1,23 @@
-const DropDownComponent = () => {
+import React from "react";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
+
+const DropDownComponent = ({ onSelect }) => {
   return (
     <View
       style={{
         elevation: 5,
-        marginTop: 20,
-        // height: 300,
         alignSelf: "center",
-        width: "90%",
+        width: "100%",
         backgroundColor: "#fff",
-        borderRadius: 10,
+        borderRadius: 7,
       }}
     >
       <FlatList
         data={[
-          { name: "iteam-A" },
-          { name: "iteam-B" },
-          { name: "iteam-C" },
-          { name: "iteam-D" },
+          { name: "item-A" },
+          { name: "item-B" },
+          { name: "item-C" },
+          { name: "item-D" },
         ]}
         renderItem={({ item, index }) => {
           return (
@@ -30,13 +31,10 @@ const DropDownComponent = () => {
                 borderColor: "#8e8e8e",
               }}
               onPress={() => {
-                setSelectedCountry(item.country);
-                setClicked(!clicked);
-                onSearch("");
-                setSearch("");
+                onSelect(item.name);
               }}
             >
-              <Text style={{ fontWeight: "600" }}>{item.country}</Text>
+              <Text style={{ fontWeight: "600" }}>{item.name}</Text>
             </TouchableOpacity>
           );
         }}
