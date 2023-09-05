@@ -12,13 +12,18 @@ import {
 import TableComponent from "../component/TableComponent";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CalendarComponent from "../component/CalendarComponent";
-import { calendarIcon } from "../utils/images";
+import { arrowDown, calendarIcon } from "../utils/images";
+import DropDownComponent from "../component/DropDownComponent";
 
 function HomeScreen() {
   const [showCalendar, setShowCalendar] = useState(false);
   const [dateType, setdateType] = useState("end");
   const [startDate, setStartDate] = useState("22/10/2023");
   const [endDate, setEndDate] = useState("22/10/2023");
+  const [showDropDropdown, setShowDropDropdown] = useState(false);
+  const [dropdownType, setDropdownType] = useState("");
+  const [mot, setMot] = useState("ALL");
+  const [plantArea, setPlantArea] = useState("ALL");
 
   function formatDate(inputDate) {
     var date = new Date(inputDate);
@@ -42,46 +47,118 @@ function HomeScreen() {
           Language: <Text style={styles.subHeaderText}>en</Text>
         </Text>
       </View>
-      <View style={styles.findView}>
-        <TextInput
-          style={styles.findInput}
-          placeholder="Find"
-          placeholderTextColor={"#000000"}
-        />
-        <View style={styles.findSubView}>
-          <Image
-            source={require("./../assets/searchIcon.png")}
-            style={styles.searchIcon}
+      <View>
+        <View style={styles.findView}>
+          <TextInput
+            style={styles.findInput}
+            placeholder="Find"
+            placeholderTextColor={"#000000"}
           />
-          <Image
-            source={require("./../assets/arrowDown.png")}
-            style={styles.searchIcon}
-          />
-        </View>
-      </View>
-      <View style={styles.mot}>
-        <View style={styles.subMot}>
-          <Text>MOT</Text>
-          <View style={styles.motView}>
-            <Text>ALL</Text>
+          <View style={styles.findSubView}>
             <Image
-              source={require("./../assets/arrowDown.png")}
+              source={require("./../assets/searchIcon.png")}
               style={styles.searchIcon}
             />
+            <TouchableOpacity
+              onPress={() => {
+                setDropdownType("find");
+                setShowDropDropdown((prev) => !prev);
+              }}
+            >
+              <Image source={arrowDown} style={styles.searchIcon} />
+            </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.subMot}>
-          <Text>Plant Area</Text>
+        {showDropDropdown && dropdownType === "find" && (
+          <TouchableWithoutFeedback style={{ flex: 1 }}>
+            <DropDownComponent
+              onSelect={(val) => {
+                if (dropdownType === "plant_area") {
+                  setPlantArea(val);
+                } else {
+                  setMot(val);
+                }
+                setShowDropDropdown(false);
+              }}
+            />
+          </TouchableWithoutFeedback>
+        )}
+      </View>
+      <View>
+        <View style={styles.mot}>
+          <View style={styles.subMot}>
+            <Text>MOT</Text>
+            <TouchableOpacity
+              style={styles.motView}
+              onPress={() => {
+                setDropdownType("mot");
+                setShowDropDropdown((prev) => !prev);
+              }}
+            >
+              <Text>{mot}</Text>
+              <Image
+                source={arrowDown}
+                style={[
+                  styles.searchIcon,
+                  {
+                    transform: [
+                      {
+                        rotate:
+                          showDropDropdown && dropdownType === "mot"
+                            ? "180deg"
+                            : "0deg",
+                      },
+                    ],
+                  },
+                ]}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.subMot}>
+            <Text>Plant Area</Text>
+            <TouchableOpacity
+              style={styles.motView}
+              onPress={() => {
+                setDropdownType("plant_area");
+                setShowDropDropdown((prev) => !prev);
+              }}
+            >
+              <Text>{plantArea}</Text>
+              <Image
+                source={arrowDown}
+                style={[
+                  styles.searchIcon,
+                  {
+                    transform: [
+                      {
+                        rotate:
+                          showDropDropdown && dropdownType === "plant_area"
+                            ? "180deg"
+                            : "0deg",
+                      },
+                    ],
+                  },
+                ]}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+        {showDropDropdown && dropdownType !== "find" && (
+          <TouchableWithoutFeedback style={{ flex: 1 }}>
+            <DropDownComponent
+              onSelect={(val) => {
+                if (dropdownType === "plant_area") {
+                  setPlantArea(val);
+                } else {
+                  setMot(val);
+                }
+                setShowDropDropdown(false);
+              }}
+            />
+          </TouchableWithoutFeedback>
+        )}
+      </View>
 
-          <View style={styles.motView}>
-            <Text>ALL</Text>
-            <Image
-              source={require("./../assets/arrowDown.png")}
-              style={styles.searchIcon}
-            />
-          </View>
-        </View>
-      </View>
       <View style={styles.mot}>
         <View style={styles.subMot}>
           <Text>Start Date</Text>
@@ -156,6 +233,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 5,
     flexDirection: "row",
+    marginBottom: 2,
   },
   calendarIcon: {
     backgroundColor: "#FFFFFF",

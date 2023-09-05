@@ -5,3 +5,4 @@ export const deliveryTruckIcon = require("./../assets/deliveryTruckIcon.png");
 export const uploadIcon = require("./../assets/uploadIcon.png");
 export const departureIcon = require("./../assets/departureIcon.png");
 export const checkboxIcon = require("./../assets/checkboxIcon.png");
+export const arrowDown = require("./../assets/arrowDown.png");
