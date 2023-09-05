@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
 import { Table, Row } from "react-native-table-component";
 
-const ExampleThree = () => {
+const TableComponent = () => {
   const navigation = useNavigation();
   const [tableHead] = useState([
     "Event Description",
@@ -110,7 +110,6 @@ const ExampleThree = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { padding: 5 },
   header: { height: 50, backgroundColor: "#537790" },
   text: {
     textAlign: "center",
@@ -119,4 +118,4 @@ const styles = StyleSheet.create({
   row: { height: 40, backgroundColor: "#E7E6E1" },
 });
 
-export default ExampleThree;
+export default TableComponent;

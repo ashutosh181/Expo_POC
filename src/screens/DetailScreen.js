@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import {
   FlatList,
   Image,
-  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -11,56 +10,65 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import {
+  calendarIcon,
+  checkboxIcon,
+  commentIcon,
+  deliveryTruckIcon,
+  departureIcon,
+  logoutIcon,
+  uploadIcon,
+} from "../utils/images";
 
 function DetailScreen({ navigation, route }) {
   const { data } = route.params;
-  useEffect(() => {}, []);
+
   const navList = [
     {
       id: 1,
-      icon: require("./../assets/calendarIcon.png"),
+      icon: calendarIcon,
       Selected: false,
       name: "Event",
     },
     {
       id: 2,
-      icon: require("./../assets/calendarIcon.png"),
+      icon: commentIcon,
       Selected: false,
       name: "Comments",
     },
     {
       id: 3,
-      icon: require("./../assets/calendarIcon.png"),
-      Selected: false,
+      icon: logoutIcon,
+      Selected: true,
       name: "Arrival",
     },
     {
       id: 4,
-      icon: require("./../assets/calendarIcon.png"),
+      icon: deliveryTruckIcon,
       Selected: false,
       name: "1st Waight",
     },
     {
       id: 5,
-      icon: require("./../assets/calendarIcon.png"),
-      Selected: true,
+      icon: uploadIcon,
+      Selected: false,
       name: "Unload",
     },
     {
       id: 6,
-      icon: require("./../assets/calendarIcon.png"),
+      icon: deliveryTruckIcon,
       Selected: false,
-      name: "1st Waight",
+      name: "2nd Waight",
     },
     {
       id: 7,
-      icon: require("./../assets/calendarIcon.png"),
+      icon: departureIcon,
       Selected: false,
       name: "Departure",
     },
     {
       id: 8,
-      icon: require("./../assets/calendarIcon.png"),
+      icon: checkboxIcon,
       Selected: false,
       name: "Completed in ECC",
     },
@@ -103,7 +111,7 @@ function DetailScreen({ navigation, route }) {
           />
         </TouchableOpacity>
         <Text style={styles.headerText}>
-          {data.PN}:{data.PI}
+          {data.PI}:{data.PN}
         </Text>
       </View>
       <ScrollView bounces={false} style={{ paddingBottom: 100 }}>
@@ -116,18 +124,10 @@ function DetailScreen({ navigation, route }) {
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
-        <View
-          style={{
-            width: "95%",
-            height: 50,
-            backgroundColor: "#6a6e69",
-            alignSelf: "center",
-            marginVertical: 10,
-          }}
-        >
+        <View style={styles.navigationView}>
           <Image />
         </View>
-        <View style={{ marginHorizontal: 10, paddingBottom: 10 }}>
+        <View style={styles.detailsContainer}>
           <View style={styles.inputView}>
             <Text>PO Number</Text>
             <TextInput value={data.PN} style={styles.textInput} />
@@ -141,32 +141,33 @@ function DetailScreen({ navigation, route }) {
             <TextInput value={data.PN} style={styles.textInput} />
           </View>
           <View style={styles.inputView}>
-            <Text>Material Desc</Text>
+            <Text>
+              Date of Manufacturing <Text style={styles.startText}>*</Text>
+            </Text>
             <View style={styles.dropDownInput}>
-              <Image
-                source={require("./../assets/calendarIcon.png")}
-                style={styles.calIcon}
-              />
+              <Image source={calendarIcon} style={styles.calIcon} />
             </View>
           </View>
           <View style={styles.inputView}>
-            <Text>Date of Manufacturing</Text>
-            <View style={styles.dropDownInput}></View>
-          </View>
-          <View style={styles.inputView}>
-            <Text>vessel Number</Text>
+            <Text>
+              Vessel Number <Text style={styles.startText}>*</Text>
+            </Text>
             <TextInput style={styles.dropDownInput} />
           </View>
           <View style={styles.inputView}>
-            <Text>vessel Location</Text>
+            <Text>Vehicle Location</Text>
             <TextInput style={styles.dropDownInput} />
           </View>
           <View style={styles.inputView}>
-            <Text>Vendor Oder Quantity </Text>
+            <Text>
+              Vendor Order Quantity <Text style={styles.startText}>*</Text>
+            </Text>
             <TextInput style={styles.dropDownInput} />
           </View>
           <View style={styles.inputView}>
-            <Text>Unit of Measure</Text>
+            <Text>
+              Unit of Measure <Text style={styles.startText}>*</Text>
+            </Text>
             <TextInput style={styles.dropDownInput} />
           </View>
           <View style={styles.inputView}>
@@ -192,13 +193,14 @@ function DetailScreen({ navigation, route }) {
 }
 export default DetailScreen;
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 10 },
+  container: { flex: 1, paddingVertical: 10 },
   backIcon: { height: 18, width: 18, transform: [{ rotate: "90deg" }] },
   text: { textAlign: "center", fontWeight: "100" },
   dataWrapper: { marginTop: -1 },
   row: { height: 40, backgroundColor: "#E7E6E1" },
   backIconView: {},
   headerView: {
+    marginTop: 30,
     marginVertical: 5,
     flexDirection: "row",
     marginHorizontal: 10,
@@ -207,7 +209,7 @@ const styles = StyleSheet.create({
   itemIconView: {
     borderRadius: 40,
     borderWidth: 1,
-    padding: 20,
+    padding: 18,
     borderColor: "#9bf2d5",
   },
   textInput: {
@@ -261,4 +263,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
     flex: 1,
   },
+  detailsContainer: {
+    marginHorizontal: 20,
+    paddingBottom: 10,
+    width: "93%",
+    alignSelf: "center",
+  },
+  navigationView: {
+    width: "93%",
+    height: 50,
+    backgroundColor: "#6a6e69",
+    alignSelf: "center",
+    marginVertical: 10,
+  },
+  startText: { color: "red", fontSize: 15 },
 });
