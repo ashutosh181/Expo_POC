@@ -28,7 +28,6 @@ export default App;
 
 
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { PowerBIEmbed } from 'powerbi-client-react';
 import { models } from 'powerbi-client';
@@ -64,10 +63,12 @@ function App() {
 
   const handleStateChange = (event) => {
     setStateFilter(event.target.value);
+    applyFilters(event.target.value, variantFilter);
   };
 
   const handleVariantChange = (event) => {
     setVariantFilter(event.target.value);
+    applyFilters(stateFilter, event.target.value);
   };
 
   const handleDateChange = (newValue) => {
@@ -101,6 +102,43 @@ function App() {
     );
   });
 
+  const applyFilters = (stateFilter, variantFilter) => {
+    const filters = [];
+
+    if (stateFilter) {
+      filters.push({
+        $schema: "http://powerbi.com/product/schema#basic",
+        target: {
+          table: "data", // Replace with your actual table name
+          column: "state"
+        },
+        operator: "In",
+        values: [stateFilter]
+      });
+    }
+
+    if (variantFilter) {
+      filters.push({
+        $schema: "http://powerbi.com/product/schema#basic",
+        target: {
+          table: "data", // Replace with your actual table name
+          column: "variant"
+        },
+        operator: "In",
+        values: [variantFilter]
+      });
+    }
+
+    if (window.report) {
+      window.report.setFilters(filters).catch(error => {
+        console.error("Error setting filters", error);
+      });
+    }
+  };
+
+  useEffect(() => {
+    applyFilters(stateFilter, variantFilter);
+  }, [stateFilter, variantFilter]);
   return (
     <Wrapper>
       <HeaderWrapper>
